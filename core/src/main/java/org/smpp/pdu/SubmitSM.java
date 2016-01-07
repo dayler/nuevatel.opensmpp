@@ -194,6 +194,10 @@ public class SubmitSM extends Request {
 	    shortMessage.setEncoding(encoding);
 	}
 	
+	public String getShortMessageEncoding() {
+	    return shortMessage.getEncoding();
+    }
+	
 	public void setShortMessage(String value) throws WrongLengthOfStringException {
 		shortMessage.setMessage(value);
 		setSmLength((short) shortMessage.getLength());

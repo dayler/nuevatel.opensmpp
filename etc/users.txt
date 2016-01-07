@@ -18,7 +18,6 @@
 # and it's value, i.e. "name=peter" and "name= peter" define two different users,
 # "peter" and " peter".
 
-
 # Pavel can bound for unlimited time as any type
 name=pavel
 password=dfsew

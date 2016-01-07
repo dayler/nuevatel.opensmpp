@@ -64,7 +64,7 @@ public class Simulator {
 	/**
 	 * Name of file with user (client) authentication information.
 	 */
-	static String usersFileName = "etc/users.txt";
+	static String usersFileName = "../etc/users.txt";
 
 	/**
 	 * Directory for creating of debug and event files.
@@ -97,6 +97,7 @@ public class Simulator {
 	private boolean displayInfo = true;
 
 	private Simulator() {
+	    System.out.println(System.getProperty("user.dir"));
 	}
 
 	/**

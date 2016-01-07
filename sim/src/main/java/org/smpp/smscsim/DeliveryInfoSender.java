@@ -19,6 +19,7 @@ import org.smpp.debug.Debug;
 import org.smpp.pdu.DeliverSM;
 import org.smpp.pdu.SubmitSM;
 import org.smpp.pdu.WrongLengthOfStringException;
+import org.smpp.pdu.tlv.WrongLengthException;
 import org.smpp.util.ProcessingThread;
 import org.smpp.util.Queue;
 
@@ -82,9 +83,18 @@ public class DeliveryInfoSender extends ProcessingThread {
                 
 		deliver.setSourceAddr(submit.getDestAddr());
 		deliver.setDestAddr(submit.getDestAddr());
-                
-                deliver.setDataCoding((byte) 0x03); // ISO-Latin-1
-		String msg = "";
+        
+        deliver.setDataCoding((byte) 0x03); // ISO-Latin-1
+        // deliver async receipted
+        deliver.setMessageState((byte)entry.stat);
+        try {
+            deliver.setReceiptedMessageId(entry.messageId);
+        } catch (WrongLengthException e1) {
+            e1.printStackTrace();
+        }
+        
+        
+        		String msg = "";
 		msg += "id:" + entry.messageId + " ";
 		msg += "sub:" + entry.sub + " ";
 		msg += "dlvrd:" + entry.dlvrd + " ";

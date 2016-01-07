@@ -22,7 +22,7 @@ import org.smpp.SmppObject;
  * generates new <code>PDUProcessor</code> using object derived from
  * <code>PDUProcessorFactory</code>, passes the processor to the smsc session
  * and starts the session as a standalone thread.
- *
+ * 
  * @author Logica Mobile Networks SMPP Open Source Team
  * @version $Revision: 1.2 $
  * @see SMSCSession
