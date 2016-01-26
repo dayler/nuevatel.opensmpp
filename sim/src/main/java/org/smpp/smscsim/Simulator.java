@@ -12,8 +12,10 @@ package org.smpp.smscsim;
 
 import java.io.*;
 
+import org.smpp.Data;
 import org.smpp.SmppObject;
 import org.smpp.debug.*;
+import org.smpp.pdu.Address;
 import org.smpp.pdu.DeliverSM;
 import org.smpp.pdu.PDUException;
 import org.smpp.pdu.WrongLengthOfStringException;
@@ -361,8 +363,23 @@ public class Simulator {
 							System.out.print("Type the message> ");
 							String message = keyboard.readLine();
 							DeliverSM request = new DeliverSM();
+							// TODO hardcode values
 							try {
-								request.setShortMessage(message);
+                                request.setServiceType("Lgc");
+                                request.setEsmClass((byte)Data.SM_ESM_DEFAULT);
+                                request.setSourceAddr(new Address((byte)0x20, (byte)0x1, "7777"));
+                                request.setDestAddr(new Address((byte)0x10, (byte)0x1, "59165380073"));
+//                                request.setShortMessage("Danni!!!", "X-Gsm7Bit");
+                                // Data.SM_SME_ACK_DELIVERY_REQUESTED Data.SM_SME_ACK_NOT_REQUESTED
+                                request.setRegisteredDelivery(Data.SM_SME_ACK_NOT_REQUESTED);
+                                request.assignSequenceNumber();
+                            } catch (WrongLengthOfStringException e1) {
+                                // TODO Auto-generated catch block
+                                e1.printStackTrace();
+                            }
+							
+							try {
+								request.setShortMessage(message); // UCS-2 UTF-16BE
 								proc.serverRequest(request);
 								System.out.println("Message sent.");
 							} catch (WrongLengthOfStringException e) {

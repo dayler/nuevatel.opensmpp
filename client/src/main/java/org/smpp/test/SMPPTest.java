@@ -61,7 +61,7 @@ public class SMPPTest {
 	/**
 	 * File with default settings for the application.
 	 */
-	static String propsFilePath = "etc/smppsender.cfg";//"./smpptest.cfg";
+	static String propsFilePath = "../etc/smppsender.cfg"; //"./smpptest.cfg";
 
 	static BufferedReader keyboard = new BufferedReader(new InputStreamReader(System.in));
 
@@ -428,7 +428,6 @@ public class SMPPTest {
 			sourceAddress = getAddress("Source", sourceAddress);
 			destAddress = getAddress("Destination", destAddress);
 			replaceIfPresentFlag = getParam("Replace if present flag", replaceIfPresentFlag);
-			shortMessage = getParam("The short message", shortMessage);
 			scheduleDeliveryTime = getParam("Schedule delivery time", scheduleDeliveryTime);
 			validityPeriod = getParam("Validity period", validityPeriod);
 			esmClass = getParam("Esm class", esmClass);
@@ -436,6 +435,7 @@ public class SMPPTest {
 			priorityFlag = getParam("Priority flag", priorityFlag);
 			registeredDelivery = getParam("Registered delivery", registeredDelivery);
 			dataCoding = getParam("Data encoding", dataCoding);
+			shortMessage = getParam("The short message", shortMessage);
 			smDefaultMsgId = getParam("Sm default msg id", smDefaultMsgId);
 
 			// set values
@@ -443,7 +443,6 @@ public class SMPPTest {
 			request.setSourceAddr(sourceAddress);
 			request.setDestAddr(destAddress);
 			request.setReplaceIfPresentFlag(replaceIfPresentFlag);
-			request.setShortMessage(shortMessage,Data.ENC_GSM7BIT);
 			request.setScheduleDeliveryTime(scheduleDeliveryTime);
 			request.setValidityPeriod(validityPeriod);
 			request.setEsmClass(esmClass);
@@ -451,6 +450,9 @@ public class SMPPTest {
 			request.setPriorityFlag(priorityFlag);
 			request.setRegisteredDelivery(registeredDelivery);
 			request.setDataCoding(dataCoding);
+			request.setShortMessage(shortMessage, dataCoding == (byte)8 ? "UTF-16BE" : Data.ENC_GSM7BIT);
+			System.out.println("*** " + (dataCoding == (byte)8 ? "UTF-16BE" : Data.ENC_GSM7BIT));
+			System.out.println("*** " + new String(request.getData().getBuffer(), (dataCoding == (byte)8 ? Data.ENC_UTF16_BE : Data.ENC_GSM7BIT)) + " ***");
 			request.setSmDefaultMsgId(smDefaultMsgId);
 
 			// send the request

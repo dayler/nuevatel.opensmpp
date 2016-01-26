@@ -46,4 +46,5 @@ hs_err_pid*
 
 # opensmpp log debug files #
 sim/sim.*
+client/test.*
 

@@ -109,8 +109,8 @@ public class SMPPSender {
 
 //    byte esmClass = 0;
     // Set on true UDHI
-    byte esmClass = (byte) 64; // 0100 0000
-//     byte esmClass = (byte) 192; // 1100 0000
+//    byte esmClass = (byte) 64; // 0100 0000 // app to movile
+     byte esmClass = (byte) 192; // 1100 0000
 
 	byte protocolId = 0;
 	byte priorityFlag = 0;
@@ -196,18 +196,33 @@ public class SMPPSender {
 		}
 
 		System.out.println("Sending: \"" + message + "\" to " + dest);
+		// TODO only check bind
 		if (smppSender != null) {
-			smppSender.bind();
-
-			if(smppSender.bound) {
-				Iterator<String> it = destinations.iterator();
-				while(it.hasNext()) {
-					String d = it.next();
-					smppSender.submit(d, message, sender, senderTon, senderNpi);
-				}
-				smppSender.unbind();
-			}
+		    smppSender.bind();
+		    System.out.println("bind()...");
+		    try {
+                Thread.sleep(3000L);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+		    
+		    if (smppSender.bound) {
+		        smppSender.unbind();
+		        System.out.println("unbind()...");
+		    }
 		}
+//		if (smppSender != null) {
+//			smppSender.bind();
+//
+//			if(smppSender.bound) {
+//				Iterator<String> it = destinations.iterator();
+//				while(it.hasNext()) {
+//					String d = it.next();
+//					smppSender.submit(d, message, sender, senderTon, senderNpi);
+//				}
+//				smppSender.unbind();
+//			}
+//		}
 	}
 
 	/**
