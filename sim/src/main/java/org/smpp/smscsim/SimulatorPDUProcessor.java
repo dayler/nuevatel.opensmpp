@@ -177,6 +177,7 @@ public class SimulatorPDUProcessor extends PDUProcessor {
 							submitResponse.setMessageId(assignMessageId());
 							display("putting message into message store");
 							messageStore.submit((SubmitSM) request, submitResponse.getMessageId(), systemId);
+							// TODO
 							byte registeredDelivery =
 								(byte) (((SubmitSM) request).getRegisteredDelivery() & Data.SM_SMSC_RECEIPT_MASK);
 							if (registeredDelivery == Data.SM_SMSC_RECEIPT_REQUESTED) {

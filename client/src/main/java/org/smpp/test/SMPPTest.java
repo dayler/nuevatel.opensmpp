@@ -448,7 +448,9 @@ public class SMPPTest {
 			request.setEsmClass(esmClass);
 			request.setProtocolId(protocolId);
 			request.setPriorityFlag(priorityFlag);
+			// TODO
 			request.setRegisteredDelivery(registeredDelivery);
+			
 			request.setDataCoding(dataCoding);
 			request.setShortMessage(shortMessage, dataCoding == (byte)8 ? "UTF-16BE" : Data.ENC_GSM7BIT);
 			System.out.println("*** " + (dataCoding == (byte)8 ? "UTF-16BE" : Data.ENC_GSM7BIT));

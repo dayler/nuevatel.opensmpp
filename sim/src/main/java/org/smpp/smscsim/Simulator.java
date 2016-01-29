@@ -371,7 +371,7 @@ public class Simulator {
                                 request.setDestAddr(new Address((byte)0x10, (byte)0x1, "59165380073"));
 //                                request.setShortMessage("Danni!!!", "X-Gsm7Bit");
                                 // Data.SM_SME_ACK_DELIVERY_REQUESTED Data.SM_SME_ACK_NOT_REQUESTED
-                                request.setRegisteredDelivery(Data.SM_SME_ACK_NOT_REQUESTED);
+                                request.setRegisteredDelivery(Data.SM_SMSC_RECEIPT_REQUESTED);
                                 request.assignSequenceNumber();
                             } catch (WrongLengthOfStringException e1) {
                                 // TODO Auto-generated catch block
